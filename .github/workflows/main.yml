@@ -18,5 +18,5 @@ jobs:
           huggingface_repo: Rupesh1904/warehouse-rag-backend  # your HF space repo
           hf_token: ${{ secrets.HF_TOKEN }}                  # store your HF token as GitHub secret
           repo_type: space                                   # specify it's a Space
-          space_sdk: docker                                 # SDK type
+          space_sdk: 'docker'                                 # SDK type
           private: true                                     # keep space private
