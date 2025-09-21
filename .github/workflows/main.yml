@@ -3,7 +3,7 @@ name: Deploy to Hugging Face Space
 on:
   push:
     branches:
-      - main  # or your default branch
+      - main  # deploy on push to main
 
 jobs:
   push-to-hf:
@@ -15,8 +15,8 @@ jobs:
       - name: Hugging Push
         uses: backendcloud/hugging-push@v0.2.3
         with:
-          huggingface_repo: Rupesh1904/warehouse-rag-backend  # your HF space repo
-          hf_token: ${{ secrets.HF_TOKEN }}                  # store your HF token as GitHub secret
-          repo_type: space                                   # specify it's a Space
-          space_sdk: 'docker'                                 # SDK type
-          private: true                                     # keep space private
+          huggingface_repo: Rupesh1904/warehouse-rag-backend
+          hf_token: ${{ secrets.HF_TOKEN }}
+          repo_type: space
+          space_sdk: docker   # must match your Hugging Face Space SDK
+          private: false      # set to false unless you really want it private
