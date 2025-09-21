@@ -1,16 +1,8 @@
-     - name: Hugging Push
-  # You may pin to the exact commit or the version.
-  # uses: backendcloud/hugging-push@29ced3264cd8fdebad1a91f6a52460a14643b1ae
+- name: Hugging Push
   uses: backendcloud/hugging-push@v0.2.3
   with:
-    # 
-    huggingface_repo: # optional, default is same_with_github_repo
-    # 
-    hf_token: 
-    # 
-    repo_type: # optional, default is space
-    # 
-    space_sdk: # optional, default is gradio
-    # 
-    private: # optional
-          
+    huggingface_repo: Rupesh1904/warehouse-rag-backend  # your Hugging Face repo/space
+    hf_token: ${{ secrets.HF_TOKEN }}                  # your Hugging Face token stored as a GitHub secret
+    repo_type: space                                   # specify it's a Space
+    space_sdk: fastapi                                 # your SDK (fastapi or gradio)
+    private: true                                     # if your space is private
