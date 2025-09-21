@@ -69,7 +69,8 @@ Question: {question}
 
     # 5️⃣ LLM
     llm = ChatOpenAI(
-        model="mistralai/mistral-small-3.2-24b-instruct:free",  # or any OpenRouter-supported model
+        #model="mistralai/mistral-small-3.2-24b-instruct:free",  # or any OpenRouter-supported model
+        model="openai/gpt-4o-mini-search-preview",
         temperature=0.1,
         openai_api_key=OPENROUTER_API_KEY,
         base_url="https://openrouter.ai/api/v1"
@@ -116,3 +117,4 @@ def ask_question(request: QuestionRequest):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing question: {str(e)}")
+
