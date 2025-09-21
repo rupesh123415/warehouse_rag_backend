@@ -1,8 +1,22 @@
-- name: Hugging Push
-  uses: backendcloud/hugging-push@v0.2.3
-  with:
-    huggingface_repo: Rupesh1904/warehouse-rag-backend  # your Hugging Face repo/space
-    hf_token: ${{ secrets.HF_TOKEN }}                  # your Hugging Face token stored as a GitHub secret
-    repo_type: space                                   # specify it's a Space
-    space_sdk: fastapi                                 # your SDK (fastapi or gradio)
-    private: true                                     # if your space is private
+name: Deploy to Hugging Face Space
+
+on:
+  push:
+    branches:
+      - main  # or your default branch
+
+jobs:
+  push-to-hf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Hugging Push
+        uses: backendcloud/hugging-push@v0.2.3
+        with:
+          huggingface_repo: Rupesh1904/warehouse-rag-backend  # your HF space repo
+          hf_token: ${{ secrets.HF_TOKEN }}                  # store your HF token as GitHub secret
+          repo_type: space                                   # specify it's a Space
+          space_sdk: fastapi                                 # SDK type
+          private: true                                     # keep space private
