@@ -1,22 +1,8 @@
-name: Deploy to Hugging Face Space
-
-on:
-  push:
-    branches:
-      - main  # deploy on push to main
-
-jobs:
-  push-to-hf:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Hugging Push
-        uses: backendcloud/hugging-push@v0.2.3
-        with:
-          huggingface_repo: Rupesh1904/warehouse-rag-backend
-          hf_token: ${{ secrets.HF_TOKEN }}
-          repo_type: space
-        #  space_sdk: docker   # must match your Hugging Face Space SDK
-          private: false      # set to false unless you really want it private
+- name: Hugging Push
+  uses: backendcloud/hugging-push@v0.2.3
+  with:
+    huggingface_repo: Rupesh1904/warehouse-rag-backend
+    hf_token: ${{ secrets.HF_TOKEN }}
+    repo_type: space
+    space_sdk: docker   # or fastapi depending on your Space
+    private: false      # <-- boolean, no quotes
