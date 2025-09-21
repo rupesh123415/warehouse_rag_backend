@@ -1,19 +1,19 @@
 # ------------------------------
-# Dockerfile: FastAPI Backend (Optimized - GPU/CUDA)
+# Dockerfile: FastAPI Backend (CPU-optimized)
 # ------------------------------
 
-# 1️⃣ Use official PyTorch image as base (has CUDA, cuDNN, and PyTorch pre-installed)
-FROM pytorch/pytorch:latest
+# 1️⃣ Use lightweight Python image
+FROM python:3.11-slim
 
 # 2️⃣ Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# 3️⃣ Install system dependencies (now minimal)
+# 3️⃣ Install minimal system dependencies
 RUN apt-get update && apt-get install -y \
     curl \
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get clean
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
 # 4️⃣ Set working directory
 WORKDIR /app
@@ -21,16 +21,15 @@ WORKDIR /app
 # 5️⃣ Copy only requirements first (caching)
 COPY requirements.txt .
 
-# 6️⃣ Install Python dependencies
-# PyTorch is already installed, so this will be much faster
+# 6️⃣ Upgrade pip and install Python dependencies
 RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 7️⃣ Copy the rest of the code
 COPY . .
 
-# 8️⃣ Expose FastAPI port
-EXPOSE 8000
+# 8️⃣ Expose HF Spaces required port
+EXPOSE 7860
 
-# 9️⃣ Start FastAPI with uvicorn
-CMD ["uvicorn", "backend:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
+# 9️⃣ Start FastAPI
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860", "--workers", "2"]
